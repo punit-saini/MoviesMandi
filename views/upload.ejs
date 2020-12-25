@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Uploader || Movies Mandi</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 10px;
+        }
+
+        form div {
+            margin: 20px;
+            font-size: 18px;
+        }
+
+        input {
+            margin-left: 10px;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="fullName">Full Name : </label>
+            <input type="text" name="fullName" id="">
+        </div>
+        
+        <div>
+            <label for="bannerImage">Banner Image : </label>
+            <input type="file" name="bannerImage">
+        </div>
+
+        <div>
+            <label for="name">Name : </label>
+            <input type="text" name="name" id="">
+        </div>
+
+        <div>
+            <label for="year">Year : </label>
+            <input type="number" name="year">
+        </div>
+
+        <div>
+            <label for="duration">Duration : </label>
+            <input type="text" name="duration">
+        </div>
+
+        <div>
+            <label for="category">Category : </label>
+            <input type="text" name="category">
+        </div>
+        <div>
+            <label for="releaseDate">Release Date : </label>
+            <input type="text" name="releaseDate">
+        </div>
+        <div>
+            <label for="imdbRating">IMDB Rating : </label>
+            <input type="number" name="imdbRating">
+        </div>
+        <div>
+            <label for="imdbUser">IMDB User: </label>
+            <input type="number" name="imdbUser">
+        </div>
+        <div>
+            <label for="metascore">Metascore : </label>
+            <input type="number" name="metascore">
+        </div>
+        <div>
+            <label for="shortStoryline">Short Storyline : </label>
+            <input type="text" name="shortStoryline">
+        </div>
+        <div>
+            <label for="director">Director : </label>
+            <input type="text" name="director">
+        </div>
+        <div>
+            <label for="producer">Producer : </label>
+            <input type="text" name="producer">
+        </div>
+
+        <div>
+            <label for="actors">Actors : </label>
+            <input type="text" name="actors">
+        </div>
+        <div>
+            <label for="language">Language : </label>
+            <input type="text" name="language">
+        </div>
+        <div>
+            <label for="subtitle">Subtitle : </label>
+            <input type="text" name="subtitle">
+        </div>
+        <div>
+            <label for="size">Size : </label>
+            <input type="text" name="size">
+        </div>
+        <div>
+            <label for="quality">Quality : </label>
+            <input type="text" name="quality">
+        </div>
+        <div>
+            <label for="format">Format : </label>
+            <input type="text" name="format">
+        </div>
+        <div>
+            <label for="longStoryline">Longstoryline : </label>
+            <input type="text" name="longStoryline">
+        </div>
+        <div>
+            <label for="screenshot">Screenshots : </label>
+            <input type="file" name="screenshot1">
+            <input type="file" name="screenshot2">
+            <input type="file" name="screenshot3">
+        </div>
+        <div>
+            <label for="downloadLink">Download Link : </label>
+            <input type="text" name="downloadLink">
+        </div>
+        <div>
+            <label for="tags">Tags : </label>
+            <input type="text" name="tag1">
+            <input type="text" name="tag2">
+            <input type="text" name="tag3">
+            <input type="text" name="tag4">
+            <input type="text" name="tag5">
+            <input type="text" name="tag6">
+            <input type="text" name="tag7">
+        </div>
+
+
+      <button style="padding: 14px 28px; background-color: black; color: white;" type="submit">Submit It</button>
+
+
+    </form>
+</body>
+</html>

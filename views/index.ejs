@@ -1,0 +1,26 @@
+<%- include('partials/header.ejs') %> 
+
+
+    <main>
+       <div class="boxes">
+        <!-- <div class="box">
+                 <img src="./images.jpg" alt=""> 
+             <p><a href="#" style="color: black;">Download 3 Idiots movie Movie (2009){Hindi-English} 480P[400MB] || 720P[1.1GB]</a></p>
+        </div> -->
+        <% for (var i = 0; i<homepagemovies.length; i++) { %> 
+        <div class="box">
+    
+                 <img src="../<%=homepagemovies[i].bannerImage%>" alt=""> 
+             <p><a href="#" style="color: black;"><%=homepagemovies[i].fullName%></a></p>
+        </div>
+
+     <% } %>
+
+      </div>
+    </main>
+
+
+<%- include('partials/footer.ejs') %> 
+
+
+ 
