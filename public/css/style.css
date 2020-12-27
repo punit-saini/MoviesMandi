@@ -21,6 +21,10 @@ ul {
     list-style: none;
 }
 
+body {
+    min-height: 100vh;
+}
+
 
 
 
@@ -120,7 +124,7 @@ form.search-form button:hover {
     height: 2.5rem;
     font-size: 25px;
     text-align: center;
-
+    cursor: pointer;
 }
 
 .toggle-button i {
@@ -176,9 +180,11 @@ main {
 .box img {
     width: 100%;
     height: 220px;
+    border-bottom: 1px solid #d6caca;
 }
 
 .box {
+    border: 1px solid lightgray;
     background-color: white;
     font-family: 'Merriweather', serif;
     /* width: 36%; */
@@ -189,6 +195,14 @@ main {
 .box p {
     width: 100%;
     padding: 20px;
+}
+
+.box a {
+    transition: 1s ease-in all;
+}
+
+.box a:hover {
+    text-decoration: underline;
 }
 
 /* .box:last-child {} */
@@ -205,6 +219,9 @@ footer {
     color: #ede9e9;
     background-color: #094074;
     text-align: center;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+
 }
 
 footer ul a {
@@ -236,9 +253,13 @@ footer nav ul {
 }
 
 footer .copyright {
-    margin: 20px auto;
-    margin-bottom: 5px;
+    /* margin: 20px auto; */
+    /* margin-bottom: 5px; */
     line-height: 1.4rem;
+}
+
+footer .copyright a {
+    text-decoration: underline;
 }
 
 
@@ -417,7 +438,7 @@ body .white-beauty {
 /* /////////////// Media Queries \\\\\\\\\\\\\\\\\\ */
 
 
-@media(min-width:720px) {
+@media(min-width:789px) {
     header {
         width: 100%;
         text-align: center;
@@ -444,16 +465,20 @@ body .white-beauty {
 
     /* Main */
 
-    .boxes {
-        padding-top: 50px;
-        width: 80%;
-        margin: auto;
+    main .boxes {
+        justify-content: left;
+        /* width: min-content; */
     }
 
+    /* .box {
+        width: auto;
+    } */
+
+    /*  
     .box {
         width: 200px;
         margin-right: 15px;
-    }
+    } */
 
     /* footer */
     footer ul a {
@@ -489,7 +514,7 @@ body .white-beauty {
     .nav-links a {
         font-size: .8em;
         width: fit-content;
-        padding-right: 1px;
+        padding-right: 10px;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         background-color: #094074;
     }
@@ -529,11 +554,16 @@ body .white-beauty {
 
 @media(min-width:910px) {
     .nav-links a {
-        font-size: 1em;
+        font-size: .9em;
     }
 }
 
 @media(min-width:1020px) {
+
+
+    .boxes {
+        justify-content: center;
+    }
 
     /* increasing logo size */
 
@@ -581,11 +611,23 @@ body .white-beauty {
     }
 
     .screenshot {
-        width: 70%;
+        width: 30%;
     }
 
     .download-section {
         width: 70%;
+    }
+
+    #image-div {
+        width: 70%;
+        margin: auto;
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #image-div img {
+        margin-right: 20px;
     }
 
 

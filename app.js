@@ -4,25 +4,224 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const upload = multer({dest : 'uploads/'});
+
+
+const storage = multer.diskStorage({
+     destination : function(req,file,cb){
+        cb(null,'./uploads');
+     },
+     filename : function(req,file,cb){
+        cb(null, new Date().toISOString().replace(/:/g,'_')+ file.originalname);
+     }
+});
+
+const upload = multer({storage : storage});
+
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+app.use(express.static('uploads'));
 app.set('view engine','ejs');
 
+
+// Home route
 
 app.get('/',(req,res)=>{
    async function homepager(){
       var homepagemovies = await filmFinder();
       // console.log(homepagemovies[0].);
-      res.render('index',{homepagemovies : homepagemovies});
+      res.render('index',{homepagemovies : homepagemovies, error : ''});
    }
    homepager();
 });
 
-app.get('/movie', (req,res)=>{
-   res.render('movie');
+
+
+// Movie home route
+app.get('/getFile/:id', (req,res)=>{
+  async function oneFinder(){
+      
+      try {
+         let data = await Film.findOne({_id: req.params.id});
+         res.render('movie', {data : data});
+         // console.log(`find one success ${data}`);
+         if(!data){
+            throw new Error('no document found');
+         }
+         return data;
+      } catch (error) {
+         res.send('something went wrong with this page. Please click on back button to use other sections of site');
+         console.log(`findOne error --> ${error}`);
+         return error;
+      }
+
+  }
+  oneFinder();
+  
+});
+
+
+// search route
+
+
+app.post('/search',(req,res, next)=>{
+   async function searchFunction(req,res){
+      const searchField = req.body.search;
+      Film.find()
+      .or([{fullName : {$regex: searchField, $options: '$i'}},{tags : {$regex: searchField, $options: '$i'}}])
+         .then(data => {
+            if(data.length == 0){
+               res.render('index', {homepagemovies : '', error : 'sorry this one is not available!. Please try another one.'})
+               return;
+            }
+            else {
+               console.log(data.length);
+              res.render('index', {homepagemovies : data, error : ''});
+            }
+         })
+         .catch(err => {res.send('something went wrong!')});
+      // res.send('in testing mode')
+    }
+    searchFunction(req, res);
+});
+
+// bollywood movies 
+
+app.get('/bollywood',(req,res)=>{
+
+   async function searchFunction(req,res){
+      const searchField= 'bollywood';
+      Film.find()
+      .or({tags : {$regex: searchField, $options: '$i'}})
+         .then(data => {
+            if(data.length == 0){
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               return;
+            }
+            else {
+               console.log(data.length);
+              res.render('index', {homepagemovies : data, error : ''});
+            }
+         })
+         .catch(err => {res.send('something went wrong!')});
+      // res.send('in testing mode')
+    }
+    searchFunction(req, res);
+
 })
+
+// hollywood movies 
+
+
+app.get('/hollywood',(req,res)=>{
+
+   async function searchFunction(req,res){
+      const searchField= 'hollywood';
+      Film.find()
+      .or({tags : {$regex: searchField, $options: '$i'}})
+         .then(data => {
+            if(data.length == 0){
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               return;
+            }
+            else {
+               console.log(data.length);
+              res.render('index', {homepagemovies : data, error : ''});
+            }
+         })
+         .catch(err => {res.send('something went wrong!')});
+      // res.send('in testing mode')
+    }
+    searchFunction(req, res);
+
+})
+
+
+// web series 
+
+
+app.get('/web-series',(req,res)=>{
+
+   async function searchFunction(req,res){
+      const searchField= 'web series';
+      Film.find()
+      .or({tags : {$regex: searchField, $options: '$i'}})
+         .then(data => {
+            if(data.length == 0){
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               return;
+            }
+            else {
+               console.log(data.length);
+              res.render('index', {homepagemovies : data, error : ''});
+            }
+         })
+         .catch(err => {res.send('something went wrong!')});
+      // res.send('in testing mode')
+    }
+    searchFunction(req, res);
+
+})
+
+
+// old movie 
+
+app.get('/old-movies',(req,res)=>{
+
+   async function searchFunction(req,res){
+      const searchField= 'old movie';
+      Film.find()
+      .or({tags : {$regex: searchField, $options: '$i'}})
+         .then(data => {
+            if(data.length == 0){
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               return;
+            }
+            else {
+               console.log(data.length);
+              res.render('index', {homepagemovies : data, error : ''});
+            }
+         })
+         .catch(err => {res.send('something went wrong!')});
+      // res.send('in testing mode')
+    }
+    searchFunction(req, res);
+
+})
+
+// recommendation 
+
+app.get('/recommendation',(req,res)=>{
+
+   async function searchFunction(req,res){
+      const searchField= 'recommendation';
+      Film.find()
+      .or({tags : {$regex: searchField, $options: '$i'}})
+         .then(data => {
+            if(data.length == 0){
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               return;
+            }
+            else {
+               console.log(data.length);
+              res.render('index', {homepagemovies : data, error : ''});
+            }
+         })
+         .catch(err => {res.send('something went wrong!')});
+      // res.send('in testing mode')
+    }
+    searchFunction(req, res);
+
+})
+
+
+
+
+
+
+
+// Upload
 
 app.get('/upload', (req,res)=> {
    res.render('upload');
@@ -43,10 +242,10 @@ app.get('/upload', (req,res)=> {
 
 
 app.post('/upload',upload.fields([{name : 'bannerImage'},{name : 'screenshot1'}, {name : 'screenshot2'},{name : 'screenshot3'}]),(req, res, next)=>{
-   console.log(req.files.screenshot1[0].path);
+   console.log(req.files.screenshot1[0].filename);
    const film = new Film({
       fullName : req.body.fullName,
-      bannerImage : req.files.bannerImage[0].path,
+      bannerImage : req.files.bannerImage[0].filename,
       name : req.body.name,
       year : req.body.year,
       duration : req.body.duration,
@@ -65,14 +264,14 @@ app.post('/upload',upload.fields([{name : 'bannerImage'},{name : 'screenshot1'},
       quality : req.body.quality,
       format : req.body.format,
       longStoryline : req.body.longStoryline,
-      screenshot : [ req.files.screenshot1[0].path, req.files.screenshot2[0].path, req.files.screenshot3[0].path],
+      screenshot : [ req.files.screenshot1[0].filename, req.files.screenshot2[0].filename, req.files.screenshot3[0].filename],
       downloadLink : req.body.downloadLink,
       tags : [req.body.tag1, req.body.tag2, req.body.tag3, req.body.tag4, req.body.tag5, req.body.tag6, req.body.tag7]
  
   });
 
   film.save();
- res.send('now uploaded');
+ res.send('saved succesfully');
   console.log('thread is here now');
 
 });
@@ -91,7 +290,7 @@ app.post('/upload',upload.fields([{name : 'bannerImage'},{name : 'screenshot1'},
 
 
 
-mongoose.connect('mongodb://localhost:27017/films', {useNewUrlParser:true, useUnifiedTopology:true})
+mongoose.connect('mongodb+srv://punit:punitsaini@cluster0.2r5ez.mongodb.net/films?retryWrites=true&w=majority', {useNewUrlParser:true, useUnifiedTopology:true})
   .then(()=> console.log('MongoDB is connected Succesfully'))
   .catch(err=> console.error('Unable to connect to mongoDB :' + err));
 
@@ -136,7 +335,7 @@ async function newFilmSaver(){
   
 
    const film = new Film({
-       fullname : '3 Idiots (2009){Hindi} 480P[400MB] || 720P[1.1GB]',
+       fullName : '3 Idiots (2009){Hindi} 480P[400MB] || 720P[1.1GB]',
        bannerImage : './images.jpg',
        name : '3 Idiots',
        year : 2009,
@@ -180,16 +379,16 @@ async function filmFinder(){
    //   .sort({name : -1})
    //   .select({ fullname : 1, bannerImage : 1})
       // .count();
-   console.log(films);
+   // console.log(films);
    return films;
   }
 
-filmFinder();
+// filmFinder();
 
 //  Bulk data deletor
 
 
-// Film.deleteMany({fullName : {$ne : ''}}).then(function(){
+// Film.deleteMany({bannerImage : {$ne : ''}}).then(function(){
 //    console.log('Data Deleted');
 // }).catch(function(error){
 //    console.log('it is error', error);
@@ -203,3 +402,5 @@ app.listen('3009', console.log('Listening on port 3000'));
 
 
 // Everything is good, need to create data using post and need to find out about how to store form data into a array of string. and one more minor thing; complete that multer thing how to change these stored images into actuall jpg image(from youtube video). that's it.
+
+
