@@ -402,7 +402,7 @@ body .white-beauty {
 
 .screenshot img {
     width: 100%;
-    max-height: 244px;
+    height: 200px;
     margin-bottom: 20px;
 }
 
@@ -595,31 +595,32 @@ body .white-beauty {
     /* MOVIES PAGE */
 
     .movie-box {
-        width: 70%;
+        width: 65%;
     }
 
     .movie-box-head {
-        width: 70%;
+        width: 65%;
     }
 
     .movie-info {
-        width: 70%;
+        width: 65%;
     }
 
     .storyline {
-        width: 70%;
+        width: 65%;
     }
 
     .screenshot {
-        width: 30%;
+        padding-left: 15px;
+        width: 33%;
     }
 
     .download-section {
-        width: 70%;
+        width: 65%;
     }
 
     #image-div {
-        width: 70%;
+        width: 65%;
         margin: auto;
         margin-top: 30px;
         display: flex;

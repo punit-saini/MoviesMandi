@@ -397,10 +397,9 @@ async function filmFinder(){
 
 
 
-app.listen(process.env.PORT, console.log('Listening on port 3000'));
+app.listen(process.env.PORT || 3000, console.log('Listening on port 3000'));
 
 
 
-// Everything is good, need to create data using post and need to find out about how to store form data into a array of string. and one more minor thing; complete that multer thing how to change these stored images into actuall jpg image(from youtube video). that's it.
 
 
