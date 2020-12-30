@@ -16,7 +16,10 @@
         <% for (var i = 0; i<homepagemovies.length; i++) { %> 
         <div class="box">
     
-                 <img src="./<%=homepagemovies[i].bannerImage%>"  alt="">
+                 <!-- <img src="./<=homepagemovies[i].bannerImage%>"  alt=""> just add % sign 
+                 -->
+                 <img src="data:result/<%=homepagemovies[i].bannerImage.contentType%>;base64,
+                     <%=homepagemovies[i].bannerImage.data.toString('base64')%>">
              <p><a href="/getFile/<%=homepagemovies[i].id%> " style="color: black;"><%=homepagemovies[i].fullName%></a></p>
         </div>
 

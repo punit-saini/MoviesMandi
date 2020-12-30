@@ -5,13 +5,16 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 
+const fs = require('fs');
+const path = require('path');
+
 
 const storage = multer.diskStorage({
      destination : function(req,file,cb){
         cb(null,'./uploads');
      },
      filename : function(req,file,cb){
-        cb(null, new Date().toISOString().replace(/:/g,'_')+ file.originalname);
+        cb(null, file.fieldname + '-' + Date.now());
      }
 });
 
@@ -19,7 +22,8 @@ const upload = multer({storage : storage});
 
 
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.static('uploads'));
 app.set('view engine','ejs');
@@ -241,11 +245,17 @@ app.get('/upload', (req,res)=> {
 
 
 
-app.post('/upload',upload.fields([{name : 'bannerImage'},{name : 'screenshot1'}, {name : 'screenshot2'},{name : 'screenshot3'}]),(req, res, next)=>{
+app.post('/upload',
+ upload.fields([{name : 'bannerImage'},{name : 'screenshot1'}, {name : 'screenshot2'},{name : 'screenshot3'}])
+// upload.single('bannerImage')
+,(req, res, next)=>{
    console.log(req.files.screenshot1[0].filename);
    const film = new Film({
       fullName : req.body.fullName,
-      bannerImage : req.files.bannerImage[0].filename,
+      bannerImage : {
+         data : fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.bannerImage[0].filename)),
+         contentType : 'image/jpg'
+      },
       name : req.body.name,
       year : req.body.year,
       duration : req.body.duration,
@@ -264,7 +274,18 @@ app.post('/upload',upload.fields([{name : 'bannerImage'},{name : 'screenshot1'},
       quality : req.body.quality,
       format : req.body.format,
       longStoryline : req.body.longStoryline,
-      screenshot : [ req.files.screenshot1[0].filename, req.files.screenshot2[0].filename, req.files.screenshot3[0].filename],
+      screenshotOne : {
+         data : fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.screenshot1[0].filename)),
+         contentType : 'image/jpg'
+      },
+      screenshotTwo : {
+         data : fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.screenshot2[0].filename)),
+         contentType : 'image/jpg'
+      },
+      screenshotThree : {
+         data : fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.screenshot3[0].filename)),
+         contentType : 'image/jpg'
+      },
       downloadLink : req.body.downloadLink,
       tags : [req.body.tag1, req.body.tag2, req.body.tag3, req.body.tag4, req.body.tag5, req.body.tag6, req.body.tag7]
  
@@ -276,6 +297,19 @@ app.post('/upload',upload.fields([{name : 'bannerImage'},{name : 'screenshot1'},
 
 });
 
+
+
+
+app.get('/test', (req,res)=>{
+
+   async function oneFid(){
+
+      const result = await  Film.findById({_id : '5fec53417eca58261c7b598a'});
+       res.render('test', {result: result});
+      }
+   oneFid();
+   
+})
 
 
 
@@ -297,7 +331,10 @@ mongoose.connect('mongodb+srv://punit:punitsaini@cluster0.2r5ez.mongodb.net/film
 
   const  filmSchema = new mongoose.Schema({
    fullName : String,
-    bannerImage : String,
+    bannerImage : {
+       data : Buffer,
+       contentType : String
+    },
    name : String,
    year : Number,
    duration : String,
@@ -316,13 +353,20 @@ mongoose.connect('mongodb+srv://punit:punitsaini@cluster0.2r5ez.mongodb.net/film
    quality : String,
    format : String,
    longStoryline : String,
-   screenshot : [{
-      required : true,
-      type : String
-   }],
+   screenshotOne : {
+      data : Buffer,
+      contentType : String
+   },
+   screenshotTwo : {
+      data : Buffer,
+      contentType : String
+   },
+   screenshotThree : {
+      data : Buffer,
+      contentType : String
+   },
    downloadLink : String,
    tags : [{
-      required : true,
       type : String
    }]
 });
@@ -397,9 +441,10 @@ async function filmFinder(){
 
 
 
-app.listen(process.env.PORT || 3000, console.log('Listening on port 3000'));
+app.listen('3000', console.log('Listening on port 3000'));
 
 
 
+// Everything is good, need to create data using post and need to find out about how to store form data into a array of string. and one more minor thing; complete that multer thing how to change these stored images into actuall jpg image(from youtube video). that's it.
 
 

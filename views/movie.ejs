@@ -2,61 +2,65 @@
 <%- include('partials/header.ejs') %> 
 
 
-    <main id="movies-main">
+<main id="movies-main">
 
-        <h1><%=data.fullName%></h1>
-           <div class="movie-box">
-                 <img src="/<%= data.bannerImage %> " alt="">
-                 <div class="movie-box-head">
-                     <h2><%=data.name%> <span class="medium"><%= data.year %> </span></h2>
-                     <p><span class="small"> <%= data.duration %> | <%= data.category %>  | <%= data.releaseDate %> </span></p>
-                 </div>
-                 <div class="movie-box-rating">
-                     <span class="xl">
-                         <i class="fa fa-star"><%= data.imdbRating %> </i>
-                     </span>
-                     <p><span class="white-beauty">Rating :</span> <%= data.imdbRating %> /10 from <%= data.imdbUser %> users <br> <span class="white-beauty">Metascore : </span><%= data.metascore %> </p>
-                 </div>
-                 <div class="movie-box-content">
-                     <p><%= data.shortStoryline %> </p>
-                 </div>
-                 <div class="movie-people-info">
-                     <p><span class="white-beauty"> Director : </span><%= data.director %> </p>
-                     <p><span class="white-beauty"> Creator : </span><%= data.producer %> </p>
-                     <p><span class="white-beauty"> Actors : </span><%= data.actors %> </p>
-                 </div>
-            </div>
-            <div class="movie-info">
-                <h3>Movie Info -:</h3>
-                <ul>
-                  <li><p><span class="black-beauty">Name : </span><%= data.name %> </p></li> 
-                 <li><p><span class="black-beauty">Language : </span><%= data.language %> </p></li>
-                 <li><p><span class="black-beauty">Subtitle : </span><%= data.subtitle %> </p></li>
-                 <li><p><span class="black-beauty">Size : </span><%= data.size %> </p></li>
-                 <li><p><span class="black-beauty">Quality : </span><%= data.quality %> </p></li>
-                 <li><p><span class="black-beauty">Format : </span><%= data.format %> </p></li>
-                </ul>
-            </div>
-            <div class="storyline">
-                <h3>Storyline</h3>
-                <p><%= data.longStoryline %> </p>
- 
-            </div>
-            <div class="screenshot">
-                <div id="image-div">
-                    <img src="/<%= data.screenshot[0] %> " alt="">
-                    <img src="/<%= data.screenshot[1] %> " alt="">
-                    <img src="/<%= data.screenshot[2] %> " alt="">
-                </div>
-             
+    <h1><%=data.fullName%></h1>
+       <div class="movie-box">
+         <img src="data:result/<%=data.bannerImage.contentType%>;base64,
+         <%=data.bannerImage.data.toString('base64')%>">
+             <div class="movie-box-head">
+                 <h2><%=data.name%> <span class="medium"><%= data.year %> </span></h2>
+                 <p><span class="small"> <%= data.duration %> | <%= data.category %>  | <%= data.releaseDate %> </span></p>
              </div>
-         <div class="download-section">
-             <p><%= data.fullName %> </p>
-             <a target="_blank" href="<%= data.downloadLink %>">Download Now</a>
+             <div class="movie-box-rating">
+                 <span class="xl">
+                     <i class="fa fa-star"><%= data.imdbRating %> </i>
+                 </span>
+                 <p><span class="white-beauty">Rating :</span> <%= data.imdbRating %> /10 from <%= data.imdbUser %> users <br> <span class="white-beauty">Metascore : </span><%= data.metascore %> </p>
+             </div>
+             <div class="movie-box-content">
+                 <p><%= data.shortStoryline %> </p>
+             </div>
+             <div class="movie-people-info">
+                 <p><span class="white-beauty"> Director : </span><%= data.director %> </p>
+                 <p><span class="white-beauty"> Creator : </span><%= data.producer %> </p>
+                 <p><span class="white-beauty"> Actors : </span><%= data.actors %> </p>
+             </div>
+        </div>
+        <div class="movie-info">
+            <h3>Movie Info -:</h3>
+            <ul>
+              <li><p><span class="black-beauty">Name : </span><%= data.name %> </p></li> 
+             <li><p><span class="black-beauty">Language : </span><%= data.language %> </p></li>
+             <li><p><span class="black-beauty">Subtitle : </span><%= data.subtitle %> </p></li>
+             <li><p><span class="black-beauty">Size : </span><%= data.size %> </p></li>
+             <li><p><span class="black-beauty">Quality : </span><%= data.quality %> </p></li>
+             <li><p><span class="black-beauty">Format : </span><%= data.format %> </p></li>
+            </ul>
+        </div>
+        <div class="storyline">
+            <h3>Storyline</h3>
+            <p><%= data.longStoryline %> </p>
+
+        </div>
+        <div class="screenshot">
+            <div id="image-div">
+                <img src="data:result/<%=data.screenshotOne.contentType%>;base64,
+                <%=data.screenshotOne.data.toString('base64')%>">
+                <img src="data:result/<%=data.screenshotTwo.contentType%>;base64,
+                <%=data.screenshotTwo.data.toString('base64')%>">
+                <img src="data:result/<%=data.screenshotThree.contentType%>;base64,
+                <%=data.screenshotThree.data.toString('base64')%>">
+                
+            </div>
+         
          </div>
- 
-     </main>
- 
- 
+     <div class="download-section">
+         <p><%= data.fullName %> </p>
+         <a target="_blank" href="<%= data.downloadLink %>">Download Now</a>
+     </div>
+
+ </main>
+
+
 <%- include('partials/footer.ejs') %> 
- 

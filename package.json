@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node" : "14.15.0"
+    "node": "14.15.0"
   },
   "bugs": {
     "url": "https://github.com/Saini-Punit/movie-mandi/issues"
@@ -25,7 +25,9 @@
     "debug": "^4.3.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "gridfs-stream": "^1.1.1",
     "mongoose": "^5.11.8",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.2.0"
   }
 }
