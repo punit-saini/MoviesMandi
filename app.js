@@ -35,7 +35,7 @@ app.get('/',(req,res)=>{
    async function homepager(){
       var homepagemovies = await filmFinder();
       // console.log(homepagemovies[0].);
-      res.render('index',{homepagemovies : homepagemovies, error : ''});
+      res.render('index',{homepagemovies : homepagemovies, error : '', heading : ''});
    }
    homepager();
 });
@@ -76,12 +76,12 @@ app.post('/search',(req,res, next)=>{
       .or([{fullName : {$regex: searchField, $options: '$i'}},{tags : {$regex: searchField, $options: '$i'}}])
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this one is not available!. Please try another one.'})
+               res.render('index', {homepagemovies : '', error : 'sorry this movie is not found!. Please try another one.', heading : ''})
                return;
             }
             else {
                console.log(data.length);
-              res.render('index', {homepagemovies : data, error : ''});
+              res.render('index', {homepagemovies : data, error : '', heading : `Search results for : ${req.body.search}`});
             }
          })
          .catch(err => {res.send('something went wrong!')});
@@ -100,12 +100,12 @@ app.get('/bollywood',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
                return;
             }
             else {
                console.log(data.length);
-              res.render('index', {homepagemovies : data, error : ''});
+              res.render('index', {homepagemovies : data, error : '', heading : 'Bollywood'});
             }
          })
          .catch(err => {res.send('something went wrong!')});
@@ -126,12 +126,12 @@ app.get('/hollywood',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : '' })
                return;
             }
             else {
                console.log(data.length);
-              res.render('index', {homepagemovies : data, error : ''});
+              res.render('index', {homepagemovies : data, error : '', heading : 'Hollywood'});
             }
          })
          .catch(err => {res.send('something went wrong!')});
@@ -153,12 +153,12 @@ app.get('/web-series',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
                return;
             }
             else {
                console.log(data.length);
-              res.render('index', {homepagemovies : data, error : ''});
+              res.render('index', {homepagemovies : data, error : '', heading : 'Web - Series'});
             }
          })
          .catch(err => {res.send('something went wrong!')});
@@ -179,12 +179,12 @@ app.get('/old-movies',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
                return;
             }
             else {
                console.log(data.length);
-              res.render('index', {homepagemovies : data, error : ''});
+              res.render('index', {homepagemovies : data, error : '', heading : 'Old Movies'});
             }
          })
          .catch(err => {res.send('something went wrong!')});
@@ -199,17 +199,17 @@ app.get('/old-movies',(req,res)=>{
 app.get('/recommendation',(req,res)=>{
 
    async function searchFunction(req,res){
-      const searchField= 'recommendation';
+      const searchField= 'recommend';
       Film.find()
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.'})
+               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
                return;
             }
             else {
                console.log(data.length);
-              res.render('index', {homepagemovies : data, error : ''});
+              res.render('index', {homepagemovies : data, error : '', heading : 'Our Recommendation'});
             }
          })
          .catch(err => {res.send('something went wrong!')});
@@ -420,7 +420,7 @@ async function filmFinder(){
       .find()
   //    .and([{ year : 1994}, { rating : 9}])
    //   .limit(10)
-   //   .sort({name : -1})
+     .sort({year : -1})
    //   .select({ fullname : 1, bannerImage : 1})
       // .count();
    // console.log(films);
@@ -441,7 +441,7 @@ async function filmFinder(){
 
 
 
-app.listen(process.env.PORT, console.log('Listening on port 3000'));
+app.listen(process.env.PORT || 5000, console.log('Listening on port 3000'));
 
 
 
