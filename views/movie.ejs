@@ -32,10 +32,6 @@
             <ul>
               <li><p><span class="black-beauty">Name : </span><%= data.name %> </p></li> 
              <li><p><span class="black-beauty">Language : </span><%= data.language %> </p></li>
-             <li><p><span class="black-beauty">Subtitle : </span><%= data.subtitle %> </p></li>
-             <li><p><span class="black-beauty">Size : </span><%= data.size %> </p></li>
-             <li><p><span class="black-beauty">Quality : </span><%= data.quality %> </p></li>
-             <li><p><span class="black-beauty">Format : </span><%= data.format %> </p></li>
             </ul>
         </div>
         <div class="storyline">
@@ -57,7 +53,7 @@
          </div>
      <div class="download-section">
          <p><%= data.fullName %> </p>
-         <a target="_blank" href="<%= data.downloadLink %>">Download Now</a>
+         <a target="_blank" href="<%=data.videoLink %>">Watch Now</a>
      </div>
 
  </main>

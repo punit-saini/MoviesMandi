@@ -8,6 +8,10 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
+// File imports 
+
+const filmModel = require('./model/Film');
+
 
 const storage = multer.diskStorage({
      destination : function(req,file,cb){
@@ -22,11 +26,15 @@ const upload = multer({storage : storage});
 
 
 
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.static('uploads'));
 app.set('view engine','ejs');
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 // Home route
@@ -249,7 +257,7 @@ app.post('/upload',
  upload.fields([{name : 'bannerImage'},{name : 'screenshot1'}, {name : 'screenshot2'},{name : 'screenshot3'}])
 // upload.single('bannerImage')
 ,(req, res, next)=>{
-   console.log(req.files.screenshot1[0].filename);
+   // console.log(req.files.screenshot1[0].filename);
    const film = new Film({
       fullName : req.body.fullName,
       bannerImage : {
@@ -269,10 +277,6 @@ app.post('/upload',
       producer : req.body.producer,
       actors : req.body.actors,
       language : req.body.language,
-      subtitle : req.body.subtitle,
-      size : req.body.size,
-      quality : req.body.quality,
-      format : req.body.format,
       longStoryline : req.body.longStoryline,
       screenshotOne : {
          data : fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.screenshot1[0].filename)),
@@ -286,7 +290,7 @@ app.post('/upload',
          data : fs.readFileSync(path.join(__dirname + '/uploads/' + req.files.screenshot3[0].filename)),
          contentType : 'image/jpg'
       },
-      downloadLink : req.body.downloadLink,
+      videoLink : req.body.videoLink,
       tags : [req.body.tag1, req.body.tag2, req.body.tag3, req.body.tag4, req.body.tag5, req.body.tag6, req.body.tag7]
  
   });
@@ -296,21 +300,6 @@ app.post('/upload',
   console.log('thread is here now');
 
 });
-
-
-
-
-app.get('/test', (req,res)=>{
-
-   async function oneFid(){
-
-      const result = await  Film.findById({_id : '5fec53417eca58261c7b598a'});
-       res.render('test', {result: result});
-      }
-   oneFid();
-   
-})
-
 
 
 
@@ -329,47 +318,7 @@ mongoose.connect('mongodb+srv://punit:punitsaini@cluster0.2r5ez.mongodb.net/film
   .catch(err=> console.error('Unable to connect to mongoDB :' + err));
 
 
-  const  filmSchema = new mongoose.Schema({
-   fullName : String,
-    bannerImage : {
-       data : Buffer,
-       contentType : String
-    },
-   name : String,
-   year : Number,
-   duration : String,
-   category : String,
-   releaseDate : String,
-   imdbRating : Number,
-   imdbUser : Number,
-   metascore : Number,
-   shortStoryline : String,
-   director : String,
-   producer : String,
-   actors : String,
-   language : String,
-   subtitle : String,
-   size : String,
-   quality : String,
-   format : String,
-   longStoryline : String,
-   screenshotOne : {
-      data : Buffer,
-      contentType : String
-   },
-   screenshotTwo : {
-      data : Buffer,
-      contentType : String
-   },
-   screenshotThree : {
-      data : Buffer,
-      contentType : String
-   },
-   downloadLink : String,
-   tags : [{
-      type : String
-   }]
-});
+  const  filmSchema = filmModel;
 
 
 const Film =  mongoose.model('Film', filmSchema);
@@ -441,7 +390,7 @@ async function filmFinder(){
 
 
 
-app.listen(process.env.PORT || 5000, console.log('Listening on port 3000'));
+app.listen( 5000, console.log('Listening on port 5000'));
 
 
 
