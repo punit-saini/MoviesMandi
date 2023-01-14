@@ -6,26 +6,31 @@
 
     <h1><%=data.fullName%></h1>
        <div class="movie-box">
-         <img src="data:result/<%=data.bannerImage.contentType%>;base64,
-         <%=data.bannerImage.data.toString('base64')%>">
-             <div class="movie-box-head">
-                 <h2><%=data.name%> <span class="medium"><%= data.year %> </span></h2>
-                 <p><span class="small"> <%= data.duration %> | <%= data.category %>  | <%= data.releaseDate %> </span></p>
-             </div>
-             <div class="movie-box-rating">
-                 <span class="xl">
-                     <i class="fa fa-star"><%= data.imdbRating %> </i>
-                 </span>
-                 <p><span class="white-beauty">Rating :</span> <%= data.imdbRating %> /10 from <%= data.imdbUser %> users <br> <span class="white-beauty">Metascore : </span><%= data.metascore %> </p>
-             </div>
-             <div class="movie-box-content">
-                 <p><%= data.shortStoryline %> </p>
-             </div>
-             <div class="movie-people-info">
-                 <p><span class="white-beauty"> Director : </span><%= data.director %> </p>
-                 <p><span class="white-beauty"> Creator : </span><%= data.producer %> </p>
-                 <p><span class="white-beauty"> Actors : </span><%= data.actors %> </p>
-             </div>
+            <div class="movie-box-top">
+                <img src="data:result/<%=data.bannerImage.contentType%>;base64,
+                <%=data.bannerImage.data.toString('base64')%>">
+            </div>
+            <div class="movie-box-body">
+                <div class="movie-box-head">
+                    <h2><%=data.name%> <span class="medium"><%= data.year %> </span></h2>
+                    <p><span class="small"> <%= data.duration %> | <%= data.category %>  | <%= data.releaseDate %> </span></p>
+                </div>
+                <div class="movie-box-rating">
+                    <span class="xl">
+                        <i class="fa fa-star"><%= data.imdbRating %> </i>
+                    </span>
+                    <p><span class="white-beauty">Rating :</span> <%= data.imdbRating %> /10 from <%= data.imdbUser %> users <br> <span class="white-beauty">Metascore : </span><%= data.metascore %> </p>
+                </div>
+                <div class="movie-box-content">
+                    <p><%= data.shortStoryline %> </p>
+                </div>
+                <div class="movie-people-info">
+                    <p><span class="white-beauty"> Director : </span><%= data.director %> </p>
+                    <p><span class="white-beauty"> Creator : </span><%= data.producer %> </p>
+                    <p><span class="white-beauty"> Actors : </span><%= data.actors %> </p>
+                </div>
+          </div>
+            
         </div>
         <div class="movie-info">
             <h3>Movie Info -:</h3>

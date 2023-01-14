@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-
 const fs = require('fs');
 const path = require('path');
 
@@ -84,7 +83,7 @@ app.post('/search',(req,res, next)=>{
       .or([{fullName : {$regex: searchField, $options: '$i'}},{tags : {$regex: searchField, $options: '$i'}}])
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this movie is not found!. Please try another one.', heading : ''})
+               res.render('index', {homepagemovies : '', error : 'sorry! no movie available in this category', heading : ''})
                return;
             }
             else {
@@ -227,31 +226,17 @@ app.get('/recommendation',(req,res)=>{
 
 })
 
+// other routes
 
 
 
-
-
-
-// Upload
-
-app.get('/upload', (req,res)=> {
-   res.render('upload');
-})
-
-
-
-
-
-
-
-
-
-
+// ////////////////////////////
 
 // Upload Form 
 
-
+app.get('/upload', (req,res)=>{
+   res.render('upload')
+})
 
 app.post('/upload',
  upload.fields([{name : 'bannerImage'},{name : 'screenshot1'}, {name : 'screenshot2'},{name : 'screenshot3'}])
@@ -307,13 +292,17 @@ app.post('/upload',
 
 
 
+app.get('*', (req,res)=>{
+   res.send('<h3 style="margin-top:30vh; text-align : center; font-family : Roboto, Oxygen, Ubuntu, sans-serif;">What??? <br><br> Error 404 <br><br> <a href="/">Link To Homepage</a></h3>');
+})
+
 
 
 // Mongoose functions
 
 
 
-mongoose.connect('mongodb+srv://punit:punitsaini@cluster0.2r5ez.mongodb.net/films?retryWrites=true&w=majority', {useNewUrlParser:true, useUnifiedTopology:true})
+mongoose.connect('mongodb+srv://punit123:thisispassword@cluster0.orvqksv.mongodb.net/test', {useNewUrlParser:true, useUnifiedTopology:true})
   .then(()=> console.log('MongoDB is connected Succesfully'))
   .catch(err=> console.error('Unable to connect to mongoDB :' + err));
 
@@ -324,39 +313,34 @@ mongoose.connect('mongodb+srv://punit:punitsaini@cluster0.2r5ez.mongodb.net/film
 const Film =  mongoose.model('Film', filmSchema);
 
 
-async function newFilmSaver(){
+// async function newFilmSaver(){
   
 
-   const film = new Film({
-       fullName : '3 Idiots (2009){Hindi} 480P[400MB] || 720P[1.1GB]',
-       bannerImage : './images.jpg',
-       name : '3 Idiots',
-       year : 2009,
-       duration : '160 min',
-       category : ['romance', 'comedy'],
-       releaseDate : '25 Dec 2009',
-       imdbRating : 8.4,
-       imdbUser : 340000,
-       metascore : 74,
-       shortStoryline : 'Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots". Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them idiots.',
-       director : 'Rajkumar Hirani',
-       producer : 'Rajkumar Hirani',
-       actors : 'Kareena Kapoor, Aamir Khan, R Madhvan',
-       language : 'Hindi',
-       subtitle : 'Yes',
-       size : '1.1Gb',
-       quality : '720P',
-       format : 'mkv',
-       longStoryline : 'Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots". Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them idiots. Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots". Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them idiots.',
-       screenshot : ['./download.jpg', './download (1).jpg', './download (3).jpg'],
-       downloadLink : 'https:google.com',
-       tags : ['Aamir Khan','movie', '2020', 'Kareena Kapoor', 'raj kumar hirani', 'best bollywood movie', 'top imdb movies bollywood']
-   });
+//    const film = new Film({
+//        fullName : '3 Idiots (2009){Hindi} 480P[400MB] || 720P[1.1GB]',
+//        bannerImage : './images.jpg',
+//        name : '3 Idiots',
+//        year : 2009,
+//        duration : '160 min',
+//        category : 'Romance, Comedy',
+//        releaseDate : '25 Dec 2009',
+//        imdbRating : 8.4,
+//        imdbUser : 340000,
+//        metascore : 74,
+//        shortStoryline : 'Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots". Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them idiots.',
+//        director : 'Rajkumar Hirani',
+//        producer : 'Rajkumar Hirani',
+//        actors : 'Kareena Kapoor, Aamir Khan, R Madhvan',
+//        longStoryline : 'Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots". Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them idiots. Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots". Two friends are searching for their long last companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them idiots.',
+//        screenshot : ['./download.jpg', './download (1).jpg', './download (3).jpg'],
+//        videoLink : 'https:google.com',
+//        tags : ['Aamir Khan','movie', '2020', 'Kareena Kapoor', 'raj kumar hirani', 'best bollywood movie', 'top imdb movies bollywood']
+//    });
 
-  const result = await film.save();
-  console.log(result);
+//   const result = await film.save();
+//   console.log(result);
 
-}
+// }
 
 // newFilmSaver();
 
@@ -386,14 +370,13 @@ async function filmFinder(){
 // }).catch(function(error){
 //    console.log('it is error', error);
 // });
+// console.log()
 
 
 
-
-app.listen( 5000, console.log('Listening on port 5000'));
-
+app.listen( process.env.PORT || 5000, console.log('Listening on port 5000 (probably!)' ));
 
 
-// Everything is good, need to create data using post and need to find out about how to store form data into a array of string. and one more minor thing; complete that multer thing how to change these stored images into actuall jpg image(from youtube video). that's it.
+
 
 
