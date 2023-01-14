@@ -107,7 +107,7 @@ app.get('/bollywood',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
+               res.render('index', {homepagemovies : '', error : 'sorry! no movie available in this category', heading : ''})
                return;
             }
             else {
@@ -133,7 +133,7 @@ app.get('/hollywood',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : '' })
+               res.render('index', {homepagemovies : '', error : 'sorry! no movie available in this category', heading : '' })
                return;
             }
             else {
@@ -160,7 +160,7 @@ app.get('/web-series',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
+               res.render('index', {homepagemovies : '', error :  'sorry! no movie available in this category', heading : ''})
                return;
             }
             else {
@@ -186,7 +186,7 @@ app.get('/old-movies',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
+               res.render('index', {homepagemovies : '', error :  'sorry! no movie available in this category', heading : ''})
                return;
             }
             else {
@@ -211,7 +211,7 @@ app.get('/recommendation',(req,res)=>{
       .or({tags : {$regex: searchField, $options: '$i'}})
          .then(data => {
             if(data.length == 0){
-               res.render('index', {homepagemovies : '', error : 'sorry this page is not available!. Please try another one.', heading : ''})
+               res.render('index', {homepagemovies : '', error :  'sorry! no movie available in this category', heading : ''})
                return;
             }
             else {
