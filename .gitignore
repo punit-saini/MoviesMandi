@@ -3,4 +3,3 @@ jspm_packages/
 *.log
 .npm.node_repl_history
 package-lock.json
-site.webmanifest
