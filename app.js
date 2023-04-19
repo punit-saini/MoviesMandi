@@ -374,7 +374,7 @@ async function filmFinder(){
 
 
 
-app.listen( process.env.PORT || 5000, console.log('Listening on port 5000 (probably!)' ));
+app.listen( process.env.PORT || 3000, console.log('Listening on port 3000' ));
 
 
 
